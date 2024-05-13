@@ -1,0 +1,14 @@
+#mainDiv {
+	display: flex;
+	flex-direction: column;
+}
+
+#mainDiv > * {
+	width: 100%;
+	max-width: 600px;
+	margin: 10px auto;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	overflow: auto;
+	padding: 10px;
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>흩뿌리틀</title>
+<script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+<script src="chat-display.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+<div id="mainDiv">
+	<chat-display id="chatDisplay"></chat-display>
+	<textarea id="inputTextarea"></textarea>
+	<button id="sendButton" onclick="send();">Send</button>
+</div>
+<input id="keyInput" type="file">
+
+<script src="generation.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>
