@@ -35,24 +35,13 @@ IntervalManager.prototype.clearAll = function() {
 
 const jsConfetti = new JSConfetti();
 const intervalManager = new IntervalManager();
+var requestChat = Cohere.requestChat;
 
 const chatDisplay = document.getElementById("chatDisplay");
 const sendButton = document.getElementById("sendButton");
 const resultSpan = document.getElementById("resultSpan");
 const inputTextarea = document.getElementById("inputTextarea");
 const keyInput = document.getElementById("keyInput");
-
-const convertHistory = function(messages) {
-	return messages.filter(x => convertHistory.roleMap.has(x.sender)).map(x => ({
-		role: convertHistory.roleMap.get(x.sender),
-		message: x.text
-	}));
-};
-convertHistory.roleMap = new Map([
-	["user", "USER"],
-	["assistant", "CHATBOT"],
-	["system", "SYSTEM"]
-]);
 
 const extractCode = function(message) {
 	const result = [];
@@ -64,16 +53,18 @@ const extractCode = function(message) {
 };
 
 const readKey = async function() {
-	const text = await keyInput.files[0].text();
-	return text.trim();
+	if(keyInput.files.length > 0) {
+		const text = await keyInput.files[0].text();
+		return text.trim();
+	}
+	else return '';
 };
 
 const send = async function() {
-	const history = convertHistory(chatDisplay.getMessages());
-	const userMessage = inputTextarea.value;
-	chatDisplay.addMessage(userMessage, "user");
+	chatDisplay.addMessage(inputTextarea.value, "user");
 	inputTextarea.value = "";
-	const [ok, botMessage] = await requestChat(userMessage, history, await readKey());
+	const history = chatDisplay.getMessages();
+	const [ok, botMessage] = await requestChat(history, await readKey());
 	if(ok) {
 		chatDisplay.addMessage(botMessage, "assistant");
 		window.scrollTo(0, document.body.scrollHeight);
