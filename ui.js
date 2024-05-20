@@ -70,6 +70,7 @@ const send = async function() {
 		window.scrollTo(0, document.body.scrollHeight);
 
 		{
+			const addConfetti = jsConfetti.addConfetti.bind(jsConfetti);
 			const setInterval = intervalManager.setInterval.bind(intervalManager);
 			const setLimitedInterval = intervalManager.setLimitedInterval.bind(intervalManager);
 			const clearAll = intervalManager.clearAll.bind(intervalManager);
