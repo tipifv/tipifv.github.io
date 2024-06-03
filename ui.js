@@ -78,6 +78,11 @@ const send = async function() {
 
 		{
 			const addConfetti = jsConfetti.addConfetti.bind(jsConfetti);
+			const launchFireworks = function(params) {
+				let count = params.count;
+				if(count == undefined) count = 6;
+				fireworks.launch(count, params);
+			};
 			const setInterval = intervalManager.setInterval.bind(intervalManager);
 			const setLimitedInterval = intervalManager.setLimitedInterval.bind(intervalManager);
 			const clearAll = intervalManager.clearAll.bind(intervalManager);
@@ -92,3 +97,7 @@ const send = async function() {
 		chatDisplay.addMessage(botMessage, "undefined");
 	}
 };
+
+
+
+refreshChat();
