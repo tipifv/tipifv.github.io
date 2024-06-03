@@ -34,6 +34,7 @@ IntervalManager.prototype.clearAll = function() {
 
 
 const jsConfetti = new JSConfetti();
+const fireworks = new Fireworks.Fireworks(document.getElementById("fireworksContainer"));
 const intervalManager = new IntervalManager();
 var requestChat = Cohere.requestChat;
 

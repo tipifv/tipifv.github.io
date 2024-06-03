@@ -7,6 +7,8 @@
 <script>if(!window.showdown) document.write('<script src="lib/showdown.min.js"><\/script>')</script>
 <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 <script>if(!window.jsConfetti) document.write('<script src="lib/js-confetti.browser.js"><\/script>')</script>
+<script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/index.umd.js"></script>
+<script>if(!window.Fireworks) document.write('<script src="lib/fireworks.umd.js"><\/script>')</script>
 <script src="chat-display.js"></script>
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
@@ -20,6 +22,7 @@
 <label>열쇠: <input id="keyInput" type="file"></label>
 <br>
 <label><input id="hideCodeCheckbox" type="checkbox" onchange="refreshChat();" checked>코드 숨기기</label>
+<canvas id="fireworksContainer" style="position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; z-index: 999; pointer-events: none;"></canvas>
 
 <script src="generation.js"></script>
 <script src="ui.js"></script>
