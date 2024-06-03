@@ -1,8 +1,11 @@
 class ChatDisplay extends HTMLElement {
 	constructor() {
 		super();
+		//TODO: Don't store messages here?
 		this.messages = [];
 		this.converter = new showdown.Converter();
+		this.hideCode = true;
+		this.renderMarkdown = true;
 		this.attachShadow({ mode: 'open' });
 		this.shadowRoot.innerHTML = `
 			<style>
@@ -42,14 +45,24 @@ class ChatDisplay extends HTMLElement {
 	}
 
 	addMessage(text, sender) {
-		const htmlText = this.converter.makeHtml(text);
+		//TODO: dynamic behaviors
+		let htmlText = text;
+		if(this.hideCode) htmlText = ChatDisplay.removeCode(htmlText);
+		if(this.renderMarkdown) htmlText = this.converter.makeHtml(htmlText);
 		const messageDiv = document.createElement('div');
 		messageDiv.classList.add('message', sender);
 		messageDiv.innerHTML = htmlText;
 		this.container.appendChild(messageDiv);
 
 		this.messages.push({ text, sender });
-		this.scrollTop = this.scrollHeight;
+	}
+
+	refresh() {
+		const temp = this.messages;
+		this.clear();
+		for(let i = 0;i < temp.length;i++) {
+			this.addMessage(temp[i].text, temp[i].sender);
+		}
 	}
 
 	clear() {
@@ -59,6 +72,10 @@ class ChatDisplay extends HTMLElement {
 
 	getMessages() {
 		return this.messages;
+	}
+
+	static removeCode(text) {
+		return text.replace(/```[\S\s]*?\n([\S\s]*?)\n```/g, '');
 	}
 }
 

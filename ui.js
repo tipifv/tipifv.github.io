@@ -42,6 +42,7 @@ const sendButton = document.getElementById("sendButton");
 const resultSpan = document.getElementById("resultSpan");
 const inputTextarea = document.getElementById("inputTextarea");
 const keyInput = document.getElementById("keyInput");
+const hideCodeCheckbox = document.getElementById("hideCodeCheckbox");
 
 const extractCode = function(message) {
 	const result = [];
@@ -58,6 +59,11 @@ const readKey = async function() {
 		return text.trim();
 	}
 	else return '';
+};
+
+const refreshChat = function() {
+	chatDisplay.hideCode = hideCodeCheckbox.checked;
+	chatDisplay.refresh();
 };
 
 const send = async function() {

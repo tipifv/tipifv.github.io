@@ -15,9 +15,11 @@
 <div id="mainDiv">
 	<chat-display id="chatDisplay"></chat-display>
 	<textarea id="inputTextarea"></textarea>
-	<button id="sendButton" onclick="send();">Send</button>
+	<button id="sendButton" onclick="send();">말하기</button>
 </div>
-<input id="keyInput" type="file">
+<label>열쇠: <input id="keyInput" type="file"></label>
+<br>
+<label><input id="hideCodeCheckbox" type="checkbox" onchange="refreshChat();" checked>코드 숨기기</label>
 
 <script src="generation.js"></script>
 <script src="ui.js"></script>
