@@ -133,6 +133,11 @@ const executeEffects = function(codeStrings) {
 			if(params.quantity != undefined)
 				params.quantity = Math.max(1, Math.min(params.quantity, 5));
 		}
+		else if(effect === "DOTS") {
+			params.showLines = false;
+			if(params.size != undefined)
+				params.size = Math.max(4.0, Math.min(params.size, 7.0));
+		}
 		if(vanta != null) {
 			if(vantaType === effect)
 				vanta.setOptions(params);

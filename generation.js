@@ -114,6 +114,15 @@ launchVanta({
 });
 \`\`\`
 
+\`\`\`
+launchVanta({
+	effect: "DOTS",
+	backgroundColor: 0x302139,
+	color: 0xd27625,
+	size: 5.0, // 4 to 7
+});
+\`\`\`
+
 Every parameter except \`effect\` is optional.
 
 ### Continuous effects
