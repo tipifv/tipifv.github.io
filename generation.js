@@ -31,7 +31,7 @@ Customize confetti number:
 
 \`\`\`
 addConfetti({
-	confettiNumber: 200,
+	confettiNumber: 130,
 })
 \`\`\`
 
@@ -60,7 +60,7 @@ launchFireworks({
 ### Effect 3: CSS Effects
 Feel free to code up new effects with CSS whenever appropriate. Your CSS effects must target this element: \`document.querySelector('#mainDiv')\`. Examples:
 
-A screen shake effect:
+A screen shake effect might look like this:
 
 \`\`\`
 setLimitedInterval(() => {
@@ -149,7 +149,9 @@ const Cohere = {
 				message: userMessage,
 				chat_history: history,
 				preamble: COMMAND_R_PREAMBLE,
-				model: "command-r"
+				model: "command-r",
+				temperature: 0.35, // Default 0.3
+				p: 0.8 // Default 0.75
 			})
 		});
 		const responseBody = await response.json();
@@ -183,7 +185,9 @@ const OpenaiLike = {
 			},
 			body: JSON.stringify({
 				messages: history,
-				//model: "gpt-4"
+				//model: "gpt-4",
+				temperature: 0.8,
+				min_p: 0.08
 			})
 		});
 		const responseBody = await response.json();

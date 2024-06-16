@@ -107,7 +107,14 @@ const send = async function() {
 };
 
 const executeEffects = function(codeStrings) {
-	const addConfetti = jsConfetti.addConfetti.bind(jsConfetti);
+	const addConfetti = function(params) {
+		//TODO generalize
+		if(params.emojiSize != undefined)
+			params.emojiSize = Math.max(10, Math.min(params.emojiSize, 160));
+		if(params.confettiNumber != undefined)
+			params.confettiNumber = Math.max(5, Math.min(params.confettiNumber, 120));
+		jsConfetti.addConfetti(params);
+	};
 	const launchFireworks = function(params) {
 		let count = params.count;
 		if(count == undefined) count = 6;
