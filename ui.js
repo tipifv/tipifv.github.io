@@ -99,55 +99,56 @@ const send = async function() {
 	if(ok) {
 		chatDisplay.addMessage(botMessage, "assistant");
 		window.scrollTo(0, document.body.scrollHeight);
-
-		{
-			const addConfetti = jsConfetti.addConfetti.bind(jsConfetti);
-			const launchFireworks = function(params) {
-				let count = params.count;
-				if(count == undefined) count = 6;
-				fireworks.launch(count, params);
-			};
-			const launchVanta = function(params) {
-				const effect = params.effect;
-				delete params.effect;
-				params.el = "#vantaContainer";
-				params.mouseControls = true;
-				params.touchControls = true;
-				params.scale = 1.5;
-				params.scaleMobile = 1.5;
-				if(effect === "BIRDS") {
-					params.separation = 80;
-					if(params.quantity != undefined)
-						params.quantity = Math.max(1, Math.min(params.quantity, 5));
-				}
-				if(vanta != null) {
-					if(vantaType === effect)
-						vanta.setOptions(params);
-					else {
-						vanta.destroy();
-						vanta = VANTA[effect](params);
-					}
-				}
-				else vanta = VANTA[effect](params);
-			};
-			const setInterval = intervalManager.setInterval.bind(intervalManager);
-			const setLimitedInterval = intervalManager.setLimitedInterval.bind(intervalManager);
-			const clearAll = function() {
-				intervalManager.clearAll();
-				if(vanta != null) {
-					vanta.destroy();
-					vanta = null;
-				}
-			};
-			for(const codeBlock of extractCode(botMessage)) {
-				//TODO secure
-				//TODO handle errors
-				eval(codeBlock);
-			}
-		}
+		executeEffects(extractCode(botMessage));
 	}
 	else {
 		chatDisplay.addMessage(botMessage, "undefined");
+	}
+};
+
+const executeEffects = function(codeStrings) {
+	const addConfetti = jsConfetti.addConfetti.bind(jsConfetti);
+	const launchFireworks = function(params) {
+		let count = params.count;
+		if(count == undefined) count = 6;
+		fireworks.launch(count, params);
+	};
+	const launchVanta = function(params) {
+		const effect = params.effect;
+		delete params.effect;
+		params.el = "#vantaContainer";
+		params.mouseControls = true;
+		params.touchControls = true;
+		params.scale = 1.5;
+		params.scaleMobile = 1.5;
+		if(effect === "BIRDS") {
+			params.separation = 80;
+			if(params.quantity != undefined)
+				params.quantity = Math.max(1, Math.min(params.quantity, 5));
+		}
+		if(vanta != null) {
+			if(vantaType === effect)
+				vanta.setOptions(params);
+			else {
+				vanta.destroy();
+				vanta = VANTA[effect](params);
+			}
+		}
+		else vanta = VANTA[effect](params);
+	};
+	const setInterval = intervalManager.setInterval.bind(intervalManager);
+	const setLimitedInterval = intervalManager.setLimitedInterval.bind(intervalManager);
+	const clearAll = function() {
+		intervalManager.clearAll();
+		if(vanta != null) {
+			vanta.destroy();
+			vanta = null;
+		}
+	};
+	for(const code of codeStrings) {
+		//TODO secure
+		//TODO handle errors
+		eval(code);
 	}
 };
 
