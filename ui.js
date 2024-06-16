@@ -36,6 +36,7 @@ IntervalManager.prototype.clearAll = function() {
 const jsConfetti = new JSConfetti();
 const fireworks = new Fireworks.Fireworks(document.getElementById("fireworksContainer"));
 var vanta = null;
+var vantaType = null; //TODO: move somewhere else
 const intervalManager = new IntervalManager();
 var requestChat = Cohere.requestChat;
 
@@ -85,8 +86,6 @@ const send = async function() {
 				fireworks.launch(count, params);
 			};
 			const launchVanta = function(params) {
-				if(vanta != null)
-					vanta.destroy();
 				const effect = params.effect;
 				delete params.effect;
 				params.el = "#vantaContainer";
@@ -94,7 +93,20 @@ const send = async function() {
 				params.touchControls = true;
 				params.scale = 1.5;
 				params.scaleMobile = 1.5;
-				vanta = VANTA[effect](params);
+				if(effect === "BIRDS") {
+					params.separation = 80;
+					if(params.quantity != undefined)
+						params.quantity = Math.max(1, Math.min(params.quantity, 5));
+				}
+				if(vanta != null) {
+					if(vantaType === effect)
+						vanta.setOptions(params);
+					else {
+						vanta.destroy();
+						vanta = VANTA[effect](params);
+					}
+				}
+				else vanta = VANTA[effect](params);
 			};
 			const setInterval = intervalManager.setInterval.bind(intervalManager);
 			const setLimitedInterval = intervalManager.setLimitedInterval.bind(intervalManager);
