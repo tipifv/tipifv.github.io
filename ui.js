@@ -35,6 +35,7 @@ IntervalManager.prototype.clearAll = function() {
 
 const jsConfetti = new JSConfetti();
 const fireworks = new Fireworks.Fireworks(document.getElementById("fireworksContainer"));
+var vanta = null;
 const intervalManager = new IntervalManager();
 var requestChat = Cohere.requestChat;
 
@@ -83,9 +84,27 @@ const send = async function() {
 				if(count == undefined) count = 6;
 				fireworks.launch(count, params);
 			};
+			const launchVanta = function(params) {
+				if(vanta != null)
+					vanta.destroy();
+				const effect = params.effect;
+				delete params.effect;
+				params.el = "#vantaContainer";
+				params.mouseControls = true;
+				params.touchControls = true;
+				params.scale = 1.5;
+				params.scaleMobile = 1.5;
+				vanta = VANTA[effect](params);
+			};
 			const setInterval = intervalManager.setInterval.bind(intervalManager);
 			const setLimitedInterval = intervalManager.setLimitedInterval.bind(intervalManager);
-			const clearAll = intervalManager.clearAll.bind(intervalManager);
+			const clearAll = function() {
+				intervalManager.clearAll();
+				if(vanta != null) {
+					vanta.destroy();
+					vanta = null;
+				}
+			};
 			for(const codeBlock of extractCode(botMessage)) {
 				//TODO secure
 				//TODO handle errors
@@ -101,14 +120,3 @@ const send = async function() {
 
 
 refreshChat();
-VANTA.BIRDS({
-	el: "#vantaContainer",
-	mouseControls: true,
-	touchControls: true,
-	gyroControls: false,
-	minHeight: 200.00,
-	minWidth: 200.00,
-	scale: 1.00,
-	scaleMobile: 1.00,
-	separation: 73.00
-})

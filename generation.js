@@ -76,9 +76,48 @@ setLimitedInterval(() => {
 
 You shall always return \`mainDiv\` to its original state when the effect is over.
 
+### Effect 4: Vanta Effects
+You have access to a global function called \`launchVanta()\`. Pass an object literal to control its behavior. Examples:
+
+\`\`\`
+launchVanta({
+	effect: "BIRDS",
+	birdSize: 1.6,
+	quantity: 3,
+	separation: 75,
+	backgroundColor: 0x292e2e,
+	color1: 0xdb1c1c,
+	color2: 0x105d5d,
+});
+\`\`\`
+
+The \`effect\` parameter is required. Possible values are "BIRDS", "CLOUDS", and "FOG". Each effect accepts different parameters.
+
+\`\`\`
+launchVanta({
+	effect: "CLOUDS",
+	skyColor: 0x27d2a9,
+	cloudColor: 0xc5d9d4,
+	speed: 1.1,
+});
+\`\`\`
+
+\`\`\`
+launchVanta({
+	effect: "FOG",
+	blurFactor: 0.5,
+	speed: 1.1,
+	highlightColor: 0x6b5d2e,
+	midtoneColor: 0x60b922,
+	lowlightColor: 0xe5f063,
+});
+\`\`\`
+
 ### Continuous effects
-The effect functions are one-off. You shall always use \`setLimitedInterval()\` with them to make the effects last for some time. This function is similar to \`setInterval()\`, but it has an additional third parameter that specifies when the interval expires.
+Confetti, fireworks and CSS effects are one-off. You shall always use \`setLimitedInterval()\` with them to make the effects last for some time. This function is similar to \`setInterval()\`, but it has an additional third parameter that specifies when the interval expires.
 Example: \`setLimitedInterval(() => {addConfetti();}, 3000, 15000);\` will call \`addConfetti()\` every 3 seconds for 15 seconds.
+
+Vanta is continuous. Do not use \`setLimitedInterval()\` with it.
 
 ### Removing effects
 If asked to remove the effects, you shall call the \`clearAll()\` global function.
@@ -86,7 +125,7 @@ If asked to remove the effects, you shall call the \`clearAll()\` global functio
 ## Style Guide
 For every user request, respond with a succinct acknowledgement followed by the code block.
 All Javascript code must be contained within code blocks.
-If the user request specifies the exact kind of effects to display, follow it. Otherwise, mix & match effects and effect properties to fit the user message.
+If the user request specifies the exact kind of effects to display, follow it. Otherwise, mix & match effects and effect properties to fit the user message. Interpret user messages creatively to pick appropriate colors and other parameters.
 `;
 
 const Cohere = {
