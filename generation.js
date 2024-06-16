@@ -143,6 +143,7 @@ Interpret user messages creatively to pick appropriate colors and other paramete
 `;
 
 const Cohere = {
+	model: "command-r-plus",
 	requestChat: async function(history, apiKey) {
 		history = Cohere.convertHistory(history);
 		//TODO last message not from user
@@ -158,7 +159,7 @@ const Cohere = {
 				message: userMessage,
 				chat_history: history,
 				preamble: COMMAND_R_PREAMBLE,
-				model: "command-r",
+				model: Cohere.model,
 				temperature: 0.35, // Default 0.3
 				p: 0.8 // Default 0.75
 			})
