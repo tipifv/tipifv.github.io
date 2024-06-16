@@ -29,3 +29,7 @@
 .foreground {
 	z-index: 999;
 }
+
+.invisible {
+	display: none !important;
+}

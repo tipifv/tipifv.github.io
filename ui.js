@@ -46,6 +46,7 @@ const resultSpan = document.getElementById("resultSpan");
 const inputTextarea = document.getElementById("inputTextarea");
 const keyInput = document.getElementById("keyInput");
 const hideCodeCheckbox = document.getElementById("hideCodeCheckbox");
+const hideUiCheckbox = document.getElementById("hideUiCheckbox");
 
 const extractCode = function(message) {
 	const result = [];
@@ -67,6 +68,27 @@ const readKey = async function() {
 const refreshChat = function() {
 	chatDisplay.hideCode = hideCodeCheckbox.checked;
 	chatDisplay.refresh();
+};
+
+const keyListener = function(e) {
+	//if(e.key === " ") {
+	hideUiCheckbox.checked = false;
+	hideUi();
+	//}
+};
+
+const hideUi = function() {
+	const toHide = ["mainDiv", "sideDiv"];
+	for(const elem of toHide) {
+		if(hideUiCheckbox.checked)
+			document.getElementById(elem).classList.add("invisible");
+		else
+			document.getElementById(elem).classList.remove("invisible");
+	}
+	if(hideUiCheckbox.checked)
+		document.addEventListener("keyup", keyListener);
+	else
+		document.removeEventListener("keyup", keyListener);
 };
 
 const send = async function() {
@@ -132,3 +154,4 @@ const send = async function() {
 
 
 refreshChat();
+hideUiCheckbox.checked = false;

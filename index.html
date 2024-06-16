@@ -31,9 +31,12 @@ if(!window.VANTA) {
 	<textarea id="inputTextarea"></textarea>
 	<button id="sendButton" onclick="send();">말하기</button>
 </div>
-<label>열쇠: <input id="keyInput" type="file"></label>
-<br>
-<label><input id="hideCodeCheckbox" type="checkbox" onchange="refreshChat();" checked>코드 숨기기</label>
+<div id="sideDiv">
+	<label>열쇠: <input id="keyInput" type="file"></label>
+	<br>
+	<label><input id="hideCodeCheckbox" type="checkbox" onchange="refreshChat();" checked>코드 숨기기</label>
+	<label><input id="hideUiCheckbox" type="checkbox" onchange="hideUi();">모두 숨기기</label>
+</div>
 <canvas id="fireworksContainer" class="covering foreground"></canvas>
 <div id="vantaContainer" class="covering background"></div>
 
