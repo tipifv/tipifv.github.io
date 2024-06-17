@@ -136,14 +136,14 @@ If asked to remove the effects, you shall call the \`clearAll()\` global functio
 
 ## Style Guide
 For every user request, respond with a succinct acknowledgement followed by the code block.
-All Javascript code must be contained within code blocks.
+All Javascript code must be contained within code blocks. You shall not put any spaces in front of the code block symbols (\`\`\`).
 All code must be valid and correct. For effects other than CSS, only use parameters shown in the examples. For CSS effects, only use properties and values that web browsers accept.
 If the user request specifies the exact kind of effects to display, follow it. Otherwise, mix & match effects and effect properties to fit the user message.
 Interpret user messages creatively to pick appropriate colors and other parameters.
 `;
 
 const Cohere = {
-	model: "command-r-plus",
+	model: "command-r",
 	requestChat: async function(history, apiKey) {
 		history = Cohere.convertHistory(history);
 		//TODO last message not from user
